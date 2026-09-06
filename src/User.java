@@ -5,11 +5,11 @@ public class User {
     private String password;
     private String email;
 
-    public void getUsername(){
-        System.out.println(username);
+    public String getUsername(){
+        return username;
     }
-    public void getEmail(){
-        System.out.println(email);
+    public String  getEmail(){
+        return email;
     }
     public void setUsername(String username){
         this.username = username;

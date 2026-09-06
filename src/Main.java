@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-    static User user = new User();
     static ArrayList<User> users = new ArrayList<>();
 
     public static void main(String[] args){
@@ -38,6 +37,7 @@ public class Main {
 
     }
     static public void register(){
+        User user = new User();
         System.out.print("Please enter user name: ");
         String username = scanner.nextLine();
         user.setUsername(username);
