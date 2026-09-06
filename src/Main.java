@@ -42,14 +42,40 @@ public class Main {
         User user = new User();
         System.out.print("Please enter user name: ");
         String username = scanner.nextLine();
+
+        if (username.isEmpty()){
+            System.out.println("Username cannot be empty!");
+            return;
+        }
+
+        for (User user1 : users){
+            if (user1.getUsername().equals(username)){
+                System.out.println("Username already exists!");
+                return;
+            }
+        }
         user.setUsername(username);
 
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
+        if (password.isEmpty()){
+            System.out.println("Password cannot be empty!");
+            return;
+        }
         user.setPassword(password);
 
         System.out.print("Enter your email: ");
         String email = scanner.nextLine();
+        if (email.isEmpty()){
+            System.out.println("Email cannot be empty!");
+            return;
+        }
+        for (User user1 : users){
+            if (user1.getEmail().equals(email)){
+                System.out.println("This email already exists!");
+                return;
+            }
+        }
         user.setEmail(email);
 
         users.add(user);
@@ -59,36 +85,40 @@ public class Main {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
 
-        System.out.println("Enter your password: ");
-        String password = scanner.nextLine();
-
         boolean userFound = false;
 
         for (User user : users){
             if (user.getUsername().equals(username)){
                 userFound = true;
+                System.out.print("Enter your password: ");
+                String password = scanner.nextLine();
                 if (user.checkPassword(password)){
                     currentUser = user;
                     System.out.println("Login successful!");
+                    System.out.println("-----------------");
                     return;
                 }
                 else {
                     System.out.println("Password is incorrect!");
+                    System.out.println("----------------------");
                     return;
                 }
             }
         }
         if (!userFound){
             System.out.println("No user found with this username!");
+            System.out.println("---------------------------------");
         }
     }
     static public void logout(){
         if (currentUser == null){
             System.out.println("No user is logged in!");
+            System.out.println("---------------------");
         }
         else {
             currentUser = null;
-            System.out.println("Logout successfully");
+            System.out.println("Logout successfully!");
+            System.out.println("-------------------");
         }
     }
     static public void viewProfile(){
