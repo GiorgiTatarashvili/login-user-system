@@ -26,7 +26,7 @@ public class Main {
 
             switch (options){
                 case 1 -> register();
-                //case 2 ->
+                case 2 -> login();
                 //case 3 -> logout
                 //case 4 -> view profile
                 case 5 -> isRunning = false;
@@ -42,15 +42,31 @@ public class Main {
         String username = scanner.nextLine();
         user.setUsername(username);
 
-        System.out.println("Enter your password! ");
+        System.out.print("Enter your password: ");
         String password = scanner.nextLine();
         user.setPassword(password);
 
-        System.out.println("Enter your email: ");
+        System.out.print("Enter your email: ");
         String email = scanner.nextLine();
         user.setEmail(email);
 
         users.add(user);
 
+    }
+    static public void login(){
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+
+        System.out.println("Enter your password: ");
+        String password = scanner.nextLine();
+
+
+        for (User user : users){
+            if (user.getUsername().equals(username)){
+                if (user.checkPassword(password)){
+                    System.out.println("Login successful!");
+                }
+            }
+        }
     }
 }
