@@ -30,7 +30,7 @@ public class Main {
                 case 1 -> register();
                 case 2 -> login();
                 case 3 -> logout();
-                //case 4 -> view profile
+                case 4 -> viewProfile();
                 case 5 -> isRunning = false;
                 default -> System.out.println("Wrong input! please enter 1-5!");
             }
@@ -74,6 +74,7 @@ public class Main {
                 }
                 else {
                     System.out.println("Password is incorrect!");
+                    return;
                 }
             }
         }
@@ -89,5 +90,15 @@ public class Main {
             currentUser = null;
             System.out.println("Logout successfully");
         }
+    }
+    static public void viewProfile(){
+        if (currentUser == null){
+            System.out.println("You are not logged in yet!");
+        }
+        else {
+            System.out.println("Your username: " + currentUser.getUsername());
+            System.out.println("Your email: " + currentUser.getEmail());
+        }
+
     }
 }
