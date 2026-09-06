@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
+    static User currentUser = null;
 
     public static void main(String[] args){
         boolean isRunning = true;
@@ -22,12 +23,13 @@ public class Main {
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             options = scanner.nextInt();
+            System.out.println("---------------------");
             scanner.nextLine();
 
             switch (options){
                 case 1 -> register();
                 case 2 -> login();
-                //case 3 -> logout
+                case 3 -> logout();
                 //case 4 -> view profile
                 case 5 -> isRunning = false;
                 default -> System.out.println("Wrong input! please enter 1-5!");
@@ -60,13 +62,32 @@ public class Main {
         System.out.println("Enter your password: ");
         String password = scanner.nextLine();
 
+        boolean userFound = false;
 
         for (User user : users){
             if (user.getUsername().equals(username)){
+                userFound = true;
                 if (user.checkPassword(password)){
+                    currentUser = user;
                     System.out.println("Login successful!");
+                    return;
+                }
+                else {
+                    System.out.println("Password is incorrect!");
                 }
             }
+        }
+        if (!userFound){
+            System.out.println("No user found with this username!");
+        }
+    }
+    static public void logout(){
+        if (currentUser == null){
+            System.out.println("No user is logged in!");
+        }
+        else {
+            currentUser = null;
+            System.out.println("Logout successfully");
         }
     }
 }
