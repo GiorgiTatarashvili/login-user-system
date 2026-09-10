@@ -48,11 +48,16 @@ public class Main {
             return;
         }
 
-        for (User user1 : users){
-            if (user1.getUsername().equals(username)){
-                System.out.println("Username already exists!");
-                return;
+        try {
+            for (User user1 : users){
+                if (user1.getUsername().equals(username)){
+                    throw new UserAlreadyExistsException("Username already exists!");
+                }
             }
+        }
+        catch (UserAlreadyExistsException e){
+            System.out.println(e.getMessage());
+            return;
         }
         user.setUsername(username);
 
@@ -70,12 +75,18 @@ public class Main {
             System.out.println("Email cannot be empty!");
             return;
         }
-        for (User user1 : users){
-            if (user1.getEmail().equals(email)){
-                System.out.println("This email already exists!");
-                return;
+        try {
+            for (User user1 : users){
+                if (user1.getEmail().equals(email)){
+                   throw new UserAlreadyExistsException("This email already exists!");
+                }
             }
         }
+        catch (UserAlreadyExistsException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+
         user.setEmail(email);
 
         users.add(user);
@@ -87,28 +98,33 @@ public class Main {
 
         boolean userFound = false;
 
-        for (User user : users){
-            if (user.getUsername().equals(username)){
-                userFound = true;
-                System.out.print("Enter your password: ");
-                String password = scanner.nextLine();
-                if (user.checkPassword(password)){
-                    currentUser = user;
-                    System.out.println("Login successful!");
-                    System.out.println("-----------------");
-                    return;
-                }
-                else {
-                    System.out.println("Password is incorrect!");
-                    System.out.println("----------------------");
-                    return;
+        try {
+            for (User user : users){
+                if (user.getUsername().equals(username)){
+                    userFound = true;
+                    System.out.print("Enter your password: ");
+                    String password = scanner.nextLine();
+                    if (user.checkPassword(password)){
+                        currentUser = user;
+                        System.out.println("Login successful!");
+                        System.out.println("-----------------");
+                        return;
+                    }
+                    else {
+                        throw new InvalidLoginException("Password is incorrect!");
+
+                    }
                 }
             }
+            if (!userFound){
+                throw new InvalidLoginException("No user found with this username!");
+            }
         }
-        if (!userFound){
-            System.out.println("No user found with this username!");
-            System.out.println("---------------------------------");
+        catch (InvalidLoginException e){
+            System.out.println(e.getMessage());
+            return;
         }
+
     }
     static public void logout(){
         if (currentUser == null){
